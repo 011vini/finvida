@@ -1,0 +1,371 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f1e5;
+}
+
+/* ==========================
+   TOPO DA PÁGINA
+========================== */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 32px;
+    background-color: #ffffff;
+    border-radius: 0 0 20px 20px;
+    /* bordas arredondadas inferiores */
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+    /* sombra suave */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/* ==========================
+   ÁREA DO LOGO E TÍTULO
+========================== */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* ==========================
+ Ajuste do tamanho da logo 
+========================== */
+.logo {
+    width: auto;
+    height: auto;
+    max-height: 80px;
+}
+
+/* ==========================
+     TÍTULO
+========================== */
+.logo-area h1 {
+    margin: 0;
+    font-size: 50px;
+    color: #0b6b3a;
+}
+
+/* ==========================
+   ESTILO DO MENU
+========================== */
+.menu a {
+    margin-left: 24px;
+    text-decoration: none;
+    color: #4b4b4b;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.menu a:hover {
+    color: #0c8f4a;
+}
+
+/* ==========================
+   MODAL DO PERFIL
+========================== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background: white;
+    width: 350px;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #0003;
+}
+
+.close {
+    float: right;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.perfil-box {
+    margin: 15px 0;
+}
+
+.perfil-box input {
+    width: 95%;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.perfil-box button {
+    margin-top: 10px;
+    padding: 8px 15px;
+}
+
+.sair {
+    background: red;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+
+/* ==========================
+   LAYOUT DOS CARDS
+========================== */
+
+.cards-container {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    flex-wrap: wrap;
+    /* mantém 3 cards lado a lado */
+    justify-content: space-around;
+    /* centraliza os cards na tela */
+
+}
+
+
+/* ==========================
+   CARD BASE — usado por todos
+========================== */
+
+.card {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    width: min(300px, 90%);
+    max-height: 420px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: Arial, sans-serif;
+}
+
+
+/* ==========================
+   CARD 1 — Saldo Total
+========================== */
+
+.card-saldo h2 {
+    font-size: 20px;
+    color: #2f2f2f;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.saldo-box {
+    background: #eaf7ed;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.saldo-valor {
+    font-size: 26px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.saldo-mes-anterior {
+    font-size: 14px;
+    color: #555;
+}
+
+.saldo-mes-anterior span {
+    background-color: #e0f2e9;
+    padding: 3px 6px;
+    border-radius: 8px;
+    color: #136f43;
+    font-weight: 600;
+}
+
+
+/* ==========================
+   CARD 2 — Adicionar gasto
+========================== */
+
+.card-gasto label {
+    font-size: 14px;
+    color: #444;
+}
+
+.card-gasto input,
+.card-gasto select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+.card-gasto button {
+    padding: 12px;
+    border: none;
+    background-color: #2e7d32;
+    color: white;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.card-gasto button:hover {
+    background-color: #27682b;
+}
+
+
+/* ==========================
+   CARD 3 — Histórico de gastos
+========================== */
+
+.card-historico {
+    overflow-y: auto;
+}
+
+.card-historico h2 {
+    font-size: 20px;
+    color: #2f2f2f;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.lista-gastos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-gasto {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.descricao {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.linha-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+
+/* ==========================
+ CONTAINER DOS FILTROS 
+========================== */
+.filtros {
+    display: flex;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 20px;
+
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* ==========================
+   RÓTULOS DOS CAMPOS DE FILTRO
+========================== */
+.filtros select,
+.filtros input[type="date"] {
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 8px;
+
+    border: 1px solid #d5d5d5;
+    background-color: #fafafa;
+
+    outline: none;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+/* ==========================
+   INTERAÇÕES DOS CAMPOS DE FILTRO
+========================== */
+.filtros select:hover,
+.filtros input[type="date"]:hover {
+    background: #f1f1f1;
+}
+
+/* ==========================
+    AO CLICAR NO CAMPO
+========================== */
+.filtros select:focus,
+.filtros input[type="date"]:focus {
+    border-color: #007b55;
+    box-shadow: 0 0 4px rgba(0, 123, 85, 0.25);
+}
+
+/* ==========================
+   RESPONSIVIDADE DOS FILTROS
+========================== */
+@media (max-width: 780px) {
+    .filtros {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtros select,
+    .filtros input[type="date"] {
+        width: 100%;
+    }
+}
+
+/* ==========================
+   BOTÃO DE EXCLUSÃO DE GASTO
+========================== */
+.btn-excluir {
+    background: #ff3b3b;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-excluir:hover {
+    background: #d93535;
+}
+
+/* ==========================
+   CARD 4 — Gráfico
+========================== */
+.card-grafico h2 {
+    font-size: 20px;
+    text-align: center;
+    color: #2f2f2f;
+    margin-bottom: 10px;
+}
