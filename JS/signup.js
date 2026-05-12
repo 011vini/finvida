@@ -77,59 +77,96 @@ confirmSenha.addEventListener('keyup', () => {
   }
 })
 
-function cadastrar() {
-  if (validNome && validUsuario && validSenha && validConfirmSenha) {
-    let listaUser = JSON.parse(localStorage.getItem('listaUser') || '[]')
+async function cadastrar() {
 
-    listaUser.push(
-      {
-        nomeCad: nome.value,
-        userCad: usuario.value,
-        senhaCad: senha.value
+  if (validNome && validUsuario && validSenha && validConfirmSenha) {
+
+    try {
+
+      const resposta = await fetch(
+        'http://localhost/finvida/backend/auth/cadastro.php',
+        {
+
+          method: 'POST',
+
+          headers: {
+            'Content-Type': 'application/json'
+          },
+
+          body: JSON.stringify({
+
+            nome: nome.value,
+
+            usuario: usuario.value,
+
+            senha: senha.value
+
+          })
+        }
+      )
+
+      const dados = await resposta.json()
+
+      console.log(dados)
+
+      if (dados.status === 'sucesso') {
+
+        msgSuccess.setAttribute('style', 'display: block')
+
+        msgSuccess.innerHTML =
+          '<strong>Cadastrando usuário...</strong>'
+
+        msgError.setAttribute('style', 'display: none')
+
+        msgError.innerHTML = ''
+
+        setTimeout(() => {
+
+          window.location.href =
+            '../HTML/signin.html'
+
+        }, 3000)
+
+      } else {
+
+        msgError.setAttribute(
+          'style',
+          'display: block'
+        )
+
+        msgError.innerHTML =
+          '<strong>Erro ao cadastrar usuário</strong>'
+
       }
+
+    } catch (erro) {
+
+      console.log(erro)
+
+      msgError.setAttribute(
+        'style',
+        'display: block'
+      )
+
+      msgError.innerHTML =
+        '<strong>Erro no servidor</strong>'
+    }
+
+  } else {
+
+    msgError.setAttribute(
+      'style',
+      'display: block'
     )
 
-    localStorage.setItem('listaUser', JSON.stringify(listaUser))
+    msgError.innerHTML =
+      '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>'
 
-
-    msgSuccess.setAttribute('style', 'display: block')
-    msgSuccess.innerHTML = '<strong>Cadastrando usuário...</strong>'
-    msgError.setAttribute('style', 'display: none')
-    msgError.innerHTML = ''
-
-    setTimeout(() => {
-      window.location.href = '/html/signin.html'
-    }, 3000)
-
-
-  } else {
-    msgError.setAttribute('style', 'display: block')
-    msgError.innerHTML = '<strong>Preencha todos os campos corretamente antes de cadastrar</strong>'
     msgSuccess.innerHTML = ''
-    msgSuccess.setAttribute('style', 'display: none')
+
+    msgSuccess.setAttribute(
+      'style',
+      'display: none'
+    )
   }
 }
-
-btn.addEventListener('click', () => {
-  let inputSenha = document.querySelector('#senha')
-
-  if (inputSenha.getAttribute('type') == 'password') {
-    inputSenha.setAttribute('type', 'text')
-  } else {
-    inputSenha.setAttribute('type', 'password')
-  }
-})
-
-btnConfirm.addEventListener('click', () => {
-  let inputConfirmSenha = document.querySelector('#confirmSenha')
-
-  if (inputConfirmSenha.getAttribute('type') == 'password') {
-    inputConfirmSenha.setAttribute('type', 'text')
-  } else {
-    inputConfirmSenha.setAttribute('type', 'password')
-  }
-})
-
-
-
-

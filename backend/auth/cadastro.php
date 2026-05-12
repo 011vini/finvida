@@ -2,31 +2,44 @@
 
 include("../config/conexao.php");
 
+// RECEBER JSON
+
 $dados = json_decode(
     file_get_contents("php://input"),
     true
 );
 
-$usuario = $dados["usuario"];
+// PEGAR DADOS
+
 $nome = $dados["nome"];
+
+$usuario = $dados["usuario"];
 
 $senha = password_hash(
     $dados["senha"],
     PASSWORD_DEFAULT
 );
 
+// SQL
+
 $sql = "INSERT INTO usuarios
-(usuario, nome, senha)
+(nome, usuario, senha)
 VALUES (?, ?, ?)";
+
+// PREPARAR
 
 $stmt = $conn->prepare($sql);
 
+// PASSAR DADOS
+
 $stmt->bind_param(
     "sss",
-    $usuario,
     $nome,
+    $usuario,
     $senha
 );
+
+// EXECUTAR
 
 if($stmt->execute()){
 

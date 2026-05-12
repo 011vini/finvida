@@ -1,7 +1,7 @@
-// Proteção
+ Proteção
 if (!localStorage.getItem("token")) {
     alert("Você precisa estar logado!");
-    window.location.href = "/HTML/signin.html";
+    window.location.href = './finvida/index.html';
 }
 
 // Nome do usuário
@@ -47,7 +47,7 @@ document.getElementById("btnFecharMes").addEventListener("click", () => {
 document.getElementById("btnSair").addEventListener("click", () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userLogado");
-    window.location.href = "/HTML/signin.html";
+    window.location.href = '../HTML/signin.html';
 });
 
 // =====================
