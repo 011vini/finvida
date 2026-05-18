@@ -13,9 +13,7 @@ async function entrar() {
   try {
 
     const resposta = await fetch(
-
-      'http://localhost/finvida/backend/auth/login.php',
-
+      '../backend/auth/login.php',
       {
 
         method: 'POST',
@@ -39,12 +37,9 @@ async function entrar() {
 
     if (dados.status === 'sucesso') {
 
-      let token =
-        Math.random().toString(16).substr(2)
-
       localStorage.setItem(
         'token',
-        token
+        dados.token
       )
 
       localStorage.setItem(
@@ -52,8 +47,7 @@ async function entrar() {
         JSON.stringify(dados.usuario)
       )
 
-      window.location.href =
-        './finvida/index.html'
+      window.location.href = '../index.html'
 
     } else {
 

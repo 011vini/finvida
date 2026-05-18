@@ -51,6 +51,58 @@
         return atual;
     }
 
+    // --- API DE GASTOS ---
+    async function getUsuarioId() {
+        const userStr = localStorage.getItem("userLogado");
+        if (!userStr) return null;
+        return JSON.parse(userStr).id;
+    }
+
+    async function buscarGastosAPI() {
+        const uid = await getUsuarioId();
+        if (!uid) return [];
+        try {
+            const res = await fetch(`../backend/gastos/listar.php?usuario_id=${uid}`);
+            return await res.json();
+        } catch (e) {
+            console.error("Erro ao buscar gastos:", e);
+            return [];
+        }
+    }
+
+    async function adicionarGastoAPI(gasto) {
+        const uid = await getUsuarioId();
+        if (!uid) return null;
+        try {
+            gasto.usuario_id = uid;
+            const res = await fetch('../backend/gastos/adicionar.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(gasto)
+            });
+            return await res.json();
+        } catch (e) {
+            console.error("Erro ao adicionar gasto:", e);
+            return null;
+        }
+    }
+
+    async function deletarGastoAPI(id) {
+        const uid = await getUsuarioId();
+        if (!uid) return null;
+        try {
+            const res = await fetch('../backend/gastos/deletar.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, usuario_id: uid })
+            });
+            return await res.json();
+        } catch (e) {
+            console.error("Erro ao deletar gasto:", e);
+            return null;
+        }
+    }
+
     // Tornar módulo global
     window.financeiro = {
         formatarReal,
@@ -59,7 +111,10 @@
         getSaldoAnterior,
         setSaldoAnterior,
         adicionarDinheiro,
-        fecharMes
+        fecharMes,
+        buscarGastosAPI,
+        adicionarGastoAPI,
+        deletarGastoAPI
     };
 
 })();

@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="./CSS/estilos.css">
     <link rel="shortcut icon" href="./IMAGES/favicon2.ico" type="image/x-icon">
     <title>Orçamente</title>
+    <!-- Proteção contra acesso não autorizado (Executa antes de renderizar a página) -->
+    <script>
+        if (!localStorage.getItem("token")) {
+            window.location.replace('./HTML/signin.html');
+        }
+    </script>
 </head>
 
 <body>

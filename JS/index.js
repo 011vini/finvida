@@ -1,7 +1,7 @@
- Proteção
+// Proteção
 if (!localStorage.getItem("token")) {
-    alert("Você precisa estar logado!");
-    window.location.href = './finvida/index.html';
+    // Redireciona o usuário de forma fluida para a tela de login
+    window.location.href = './HTML/signin.html';
 }
 
 // Nome do usuário
@@ -65,7 +65,8 @@ document.getElementById("btnResetar").addEventListener("click", () => {
     // Resetar dados
     localStorage.setItem("saldoAtual", saldoPadrao);
     localStorage.setItem("saldoAnterior", saldoAnteriorPadrao);
-    localStorage.setItem("listaDeGastos", JSON.stringify([]));
+    
+    // (Nota: o reset local não apaga os gastos do banco de dados MySQL para evitar perda de dados reais)
 
     // Atualizar saldo na tela
     atualizarCard1();

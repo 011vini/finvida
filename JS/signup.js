@@ -84,7 +84,7 @@ async function cadastrar() {
     try {
 
       const resposta = await fetch(
-        'http://localhost/finvida/backend/auth/cadastro.php',
+        '../backend/auth/cadastro.php',
         {
 
           method: 'POST',
@@ -122,9 +122,7 @@ async function cadastrar() {
 
         setTimeout(() => {
 
-          window.location.href =
-            '../HTML/signin.html'
-
+          window.location.href = './signin.html'
         }, 3000)
 
       } else {

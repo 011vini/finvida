@@ -32,7 +32,7 @@ if($resultado->num_rows > 0){
 
         echo json_encode([
             "status" => "sucesso",
-
+            "token" => base64_encode($user["id"] . ":" . $user["usuario"]),
             "usuario" => [
                 "id" => $user["id"],
                 "nome" => $user["nome"],

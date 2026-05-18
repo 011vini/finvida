@@ -10,7 +10,7 @@ function salvarListaGastos(lista) {
 // Botão de salvar
 const btnSalvar = document.getElementById("btnSalvarGasto");
 
-btnSalvar.addEventListener("click", function () {
+btnSalvar.addEventListener("click", async function () {
     const descricao = document.getElementById("descricao").value;
     const valor = Number(document.getElementById("valor").value);
     const categoria = document.getElementById("categoria").value;
@@ -21,30 +21,29 @@ btnSalvar.addEventListener("click", function () {
         return;
     }
 
-    // Recarregar lista REAL atualizada
-    const listaDeGastos = getListaGastos();
-
     // Criar gasto
-    const novoGasto = { descricao, valor, categoria, data };
+    const novoGasto = { descricao, valor, categoria, data_gasto: data };
 
-    // Salvar
-    listaDeGastos.push(novoGasto);
-    salvarListaGastos(listaDeGastos);
+    // Salvar na API
+    const res = await financeiro.adicionarGastoAPI(novoGasto);
+    if(res && res.status === 'sucesso') {
+        // Atualizar saldo
+        const saldoNovo = financeiro.getSaldo() - valor;
+        financeiro.setSaldo(saldoNovo);
 
-    // Atualizar saldo
-    const saldoNovo = financeiro.getSaldo() - valor;
-    financeiro.setSaldo(saldoNovo);
+        document.getElementById("saldoAtual").textContent = financeiro.formatarReal(saldoNovo);
 
-    document.getElementById("saldoAtual").textContent = financeiro.formatarReal(saldoNovo);
+        // Limpar formulário
+        document.getElementById("descricao").value = "";
+        document.getElementById("valor").value = "";
+        document.getElementById("categoria").value = "Outros";
+        document.getElementById("data").value = "";
 
-    // Limpar formulário
-    document.getElementById("descricao").value = "";
-    document.getElementById("valor").value = "";
-    document.getElementById("categoria").value = "Outros";
-    document.getElementById("data").value = "";
+        alert("Gasto registrado com sucesso!");
 
-    alert("Gasto registrado com sucesso!");
-
-    carregarHistorico();
-    gerarGrafico();
+        await carregarHistorico();
+        await gerarGrafico();
+    } else {
+        alert("Erro ao registrar gasto no banco de dados.");
+    }
 });

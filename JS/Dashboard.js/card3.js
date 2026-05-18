@@ -13,8 +13,8 @@ const filtroOrdenar = document.getElementById("filtroOrdenar");
 
 
 // --- FUNÇÃO PRINCIPAL: CARREGAR HISTÓRICO  ---
-function carregarHistorico() {
-    let lista = JSON.parse(localStorage.getItem("listaDeGastos")) || [];
+async function carregarHistorico() {
+    let lista = await financeiro.buscarGastosAPI() || [];
 
     // APLICAR FILTROS
     lista = aplicarFiltros(lista);
@@ -40,11 +40,11 @@ function carregarHistorico() {
             style: "currency",
             currency: "BRL"
         })}</span>
-                <span><b>Data:</b> ${gasto.data}</span>
+                <span><b>Data:</b> ${gasto.data_gasto}</span>
             </div>
         </div>
 
-        <button class="btn-excluir" data-index="${index}">×</button>
+        <button class="btn-excluir" data-id="${gasto.id}" data-valor="${gasto.valor}">×</button>
     `;
 
         listaDiv.appendChild(item);
@@ -62,12 +62,12 @@ function aplicarFiltros(lista) {
 
     // FILTRO POR DATA INICIAL
     if (filtroDataInicio.value) {
-        lista = lista.filter(item => item.data >= filtroDataInicio.value);
+        lista = lista.filter(item => item.data_gasto >= filtroDataInicio.value);
     }
 
     // FILTRO POR DATA FINAL
     if (filtroDataFim.value) {
-        lista = lista.filter(item => item.data <= filtroDataFim.value);
+        lista = lista.filter(item => item.data_gasto <= filtroDataFim.value);
     }
 
     // ORDENAR
@@ -78,36 +78,36 @@ function aplicarFiltros(lista) {
         lista.sort((a, b) => b.valor - a.valor);
 
     } else if (filtroOrdenar.value === "dataAsc") {
-        lista.sort((a, b) => new Date(a.data) - new Date(b.data));
+        lista.sort((a, b) => new Date(a.data_gasto) - new Date(b.data_gasto));
 
     } else if (filtroOrdenar.value === "dataDesc") {
-        lista.sort((a, b) => new Date(b.data) - new Date(a.data));
+        lista.sort((a, b) => new Date(b.data_gasto) - new Date(a.data_gasto));
     }
 
     return lista;
 }
 
 // --- EVENTO DE EXCLUSÃO DE GASTO ---
-document.addEventListener("click", function (e) {
+document.addEventListener("click", async function (e) {
     if (e.target.classList.contains("btn-excluir")) {
 
-        const index = e.target.getAttribute("data-index");
-        let lista = JSON.parse(localStorage.getItem("listaDeGastos")) || [];
+        const id = e.target.getAttribute("data-id");
+        const valorRemovido = Number(e.target.getAttribute("data-valor"));
 
-        // valor removido
-        const valorRemovido = Number(lista[index].valor);
+        if(confirm("Deseja realmente excluir este gasto?")) {
+            const res = await financeiro.deletarGastoAPI(id);
+            if(res && res.status === 'sucesso') {
+                // devolve o valor ao saldo
+                financeiro.setSaldo(financeiro.getSaldo() + valorRemovido);
 
-        // remove da lista
-        lista.splice(index, 1);
-        localStorage.setItem("listaDeGastos", JSON.stringify(lista));
-
-        // devolve o valor ao saldo
-        financeiro.setSaldo(financeiro.getSaldo() + valorRemovido);
-
-        // atualiza tela
-        atualizarCard1();
-        carregarHistorico();
-        gerarGrafico();
+                // atualiza tela
+                atualizarCard1();
+                await carregarHistorico();
+                await gerarGrafico();
+            } else {
+                alert("Erro ao excluir gasto.");
+            }
+        }
     }
 });
 

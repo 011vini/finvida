@@ -5,10 +5,10 @@
 let graficoGastos = null;
 
 // Variável para armazenar a instância do gráfico
-function calcularGastosPorCategoria() {
+async function calcularGastosPorCategoria() {
     const categorias = {};
 
-    const lista = JSON.parse(localStorage.getItem("listaDeGastos")) || [];
+    const lista = await financeiro.buscarGastosAPI() || [];
 
     lista.forEach(gasto => {
         if (!categorias[gasto.categoria]) {
@@ -21,10 +21,10 @@ function calcularGastosPorCategoria() {
 }
 
 // Função para gerar o gráfico
-function gerarGrafico() {
+async function gerarGrafico() {
     const ctx = document.getElementById("graficoGastos");
 
-    const dados = calcularGastosPorCategoria();
+    const dados = await calcularGastosPorCategoria();
     // Extrair labels e valores
     const labels = Object.keys(dados);
     const valores = Object.values(dados);
