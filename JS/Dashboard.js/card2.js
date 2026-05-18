@@ -44,6 +44,6 @@ btnSalvar.addEventListener("click", async function () {
         await carregarHistorico();
         await gerarGrafico();
     } else {
-        alert("Erro ao registrar gasto no banco de dados.");
+        alert("Erro ao registrar gasto no banco de dados: " + (res && res.mensagem ? res.mensagem : "erro desconhecido"));
     }
 });

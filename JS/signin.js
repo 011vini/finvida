@@ -1,3 +1,18 @@
+let btnVerSenha = document.querySelector('#verSenha');
+
+if (btnVerSenha) {
+  btnVerSenha.addEventListener('click', () => {
+    let inputSenha = document.querySelector('#senha');
+    if (inputSenha.getAttribute('type') == 'password') {
+      inputSenha.setAttribute('type', 'text');
+      btnVerSenha.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+      inputSenha.setAttribute('type', 'password');
+      btnVerSenha.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+  });
+}
+
 async function entrar() {
 
   let usuario = document.querySelector('#usuario')

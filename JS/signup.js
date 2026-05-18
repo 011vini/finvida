@@ -1,6 +1,28 @@
 let btn = document.querySelector('#verSenha')
 let btnConfirm = document.querySelector('#verConfirmSenha')
 
+btn.addEventListener('click', () => {
+  let senhaInput = document.querySelector('#senha')
+  if (senhaInput.getAttribute('type') == 'password') {
+    senhaInput.setAttribute('type', 'text')
+    btn.classList.replace('fa-eye', 'fa-eye-slash')
+  } else {
+    senhaInput.setAttribute('type', 'password')
+    btn.classList.replace('fa-eye-slash', 'fa-eye')
+  }
+})
+
+btnConfirm.addEventListener('click', () => {
+  let confirmSenhaInput = document.querySelector('#confirmSenha')
+  if (confirmSenhaInput.getAttribute('type') == 'password') {
+    confirmSenhaInput.setAttribute('type', 'text')
+    btnConfirm.classList.replace('fa-eye', 'fa-eye-slash')
+  } else {
+    confirmSenhaInput.setAttribute('type', 'password')
+    btnConfirm.classList.replace('fa-eye-slash', 'fa-eye')
+  }
+})
+
 
 let nome = document.querySelector('#nome')
 let labelNome = document.querySelector('#labelNome')

@@ -62,7 +62,7 @@
         const uid = await getUsuarioId();
         if (!uid) return [];
         try {
-            const res = await fetch(`../backend/gastos/listar.php?usuario_id=${uid}`);
+            const res = await fetch(`./backend/gastos/listar.php?usuario_id=${uid}`);
             return await res.json();
         } catch (e) {
             console.error("Erro ao buscar gastos:", e);
@@ -75,7 +75,7 @@
         if (!uid) return null;
         try {
             gasto.usuario_id = uid;
-            const res = await fetch('../backend/gastos/adicionar.php', {
+            const res = await fetch('./backend/gastos/adicionar.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(gasto)
@@ -91,7 +91,7 @@
         const uid = await getUsuarioId();
         if (!uid) return null;
         try {
-            const res = await fetch('../backend/gastos/deletar.php', {
+            const res = await fetch('./backend/gastos/deletar.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id, usuario_id: uid })
@@ -99,6 +99,22 @@
             return await res.json();
         } catch (e) {
             console.error("Erro ao deletar gasto:", e);
+            return null;
+        }
+    }
+
+    async function deletarTodosGastosAPI() {
+        const uid = await getUsuarioId();
+        if (!uid) return null;
+        try {
+            const res = await fetch('./backend/gastos/deletar_todos.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario_id: uid })
+            });
+            return await res.json();
+        } catch (e) {
+            console.error("Erro ao deletar todos os gastos:", e);
             return null;
         }
     }
@@ -114,7 +130,8 @@
         fecharMes,
         buscarGastosAPI,
         adicionarGastoAPI,
-        deletarGastoAPI
+        deletarGastoAPI,
+        deletarTodosGastosAPI
     };
 
 })();

@@ -54,7 +54,7 @@ document.getElementById("btnSair").addEventListener("click", () => {
 // resetar sistema financeiro
 // =====================
 
-document.getElementById("btnResetar").addEventListener("click", () => {
+document.getElementById("btnResetar").addEventListener("click", async () => {
     if (!confirm("Tem certeza que deseja resetar tudo?\nIsto apagará todos os gastos e retornará os valores padrão.")) {
         return;
     }
@@ -66,17 +66,22 @@ document.getElementById("btnResetar").addEventListener("click", () => {
     localStorage.setItem("saldoAtual", saldoPadrao);
     localStorage.setItem("saldoAnterior", saldoAnteriorPadrao);
     
-    // (Nota: o reset local não apaga os gastos do banco de dados MySQL para evitar perda de dados reais)
+    // Apagar todos os gastos do MySQL
+    const res = await financeiro.deletarTodosGastosAPI();
+    
+    if(res && res.status === 'sucesso') {
+        // Atualizar saldo na tela
+        atualizarCard1();
 
-    // Atualizar saldo na tela
-    atualizarCard1();
+        // Atualizar saldo último mês no perfil
+        const saldoUltimoMesEl = document.getElementById("saldoUltimoMes");
+        if (saldoUltimoMesEl) saldoUltimoMesEl.textContent = financeiro.formatarReal(saldoAnteriorPadrao);
 
-    // Atualizar saldo último mês no perfil
-    const saldoUltimoMesEl = document.getElementById("saldoUltimoMes");
-    if (saldoUltimoMesEl) saldoUltimoMesEl.textContent = financeiro.formatarReal(saldoAnteriorPadrao);
-
-    // Atualizar histórico e gráfico
-    if (typeof carregarHistorico === "function") carregarHistorico();
-    if (typeof gerarGrafico === "function") gerarGrafico();
-    alert("Sistema financeiro resetado!");
+        // Atualizar histórico e gráfico
+        if (typeof carregarHistorico === "function") await carregarHistorico();
+        if (typeof gerarGrafico === "function") await gerarGrafico();
+        alert("Sistema financeiro resetado!");
+    } else {
+        alert("Erro ao resetar os gastos no banco de dados.");
+    }
 });

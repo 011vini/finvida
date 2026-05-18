@@ -46,7 +46,10 @@ async function gerarGrafico() {
                     "#42a5f5",
                     "#ffa726",
                     "#8d6e63",
-                    "#ab47bc"
+                    "#ab47bc",
+                    "#26a69a",
+                    "#ec407a",
+                    "#cddc39"
                 ],
                 borderWidth: 1
             }]
