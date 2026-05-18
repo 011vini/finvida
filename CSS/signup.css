@@ -107,7 +107,7 @@ button:hover {
   justify-content: center;
 }
 
-.fa-eye {
+.fa-eye, .fa-eye-slash {
   position: absolute;
   top: 15px;
   right: 10px;

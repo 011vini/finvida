@@ -3,23 +3,27 @@ let btnConfirm = document.querySelector('#verConfirmSenha')
 
 btn.addEventListener('click', () => {
   let senhaInput = document.querySelector('#senha')
-  if (senhaInput.getAttribute('type') == 'password') {
-    senhaInput.setAttribute('type', 'text')
-    btn.classList.replace('fa-eye', 'fa-eye-slash')
+  if (senhaInput.type === 'password') {
+    senhaInput.type = 'text'
+    btn.classList.remove('fa-eye')
+    btn.classList.add('fa-eye-slash')
   } else {
-    senhaInput.setAttribute('type', 'password')
-    btn.classList.replace('fa-eye-slash', 'fa-eye')
+    senhaInput.type = 'password'
+    btn.classList.remove('fa-eye-slash')
+    btn.classList.add('fa-eye')
   }
 })
 
 btnConfirm.addEventListener('click', () => {
   let confirmSenhaInput = document.querySelector('#confirmSenha')
-  if (confirmSenhaInput.getAttribute('type') == 'password') {
-    confirmSenhaInput.setAttribute('type', 'text')
-    btnConfirm.classList.replace('fa-eye', 'fa-eye-slash')
+  if (confirmSenhaInput.type === 'password') {
+    confirmSenhaInput.type = 'text'
+    btnConfirm.classList.remove('fa-eye')
+    btnConfirm.classList.add('fa-eye-slash')
   } else {
-    confirmSenhaInput.setAttribute('type', 'password')
-    btnConfirm.classList.replace('fa-eye-slash', 'fa-eye')
+    confirmSenhaInput.type = 'password'
+    btnConfirm.classList.remove('fa-eye-slash')
+    btnConfirm.classList.add('fa-eye')
   }
 })
 

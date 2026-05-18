@@ -3,12 +3,14 @@ let btnVerSenha = document.querySelector('#verSenha');
 if (btnVerSenha) {
   btnVerSenha.addEventListener('click', () => {
     let inputSenha = document.querySelector('#senha');
-    if (inputSenha.getAttribute('type') == 'password') {
-      inputSenha.setAttribute('type', 'text');
-      btnVerSenha.classList.replace('fa-eye', 'fa-eye-slash');
+    if (inputSenha.type === 'password') {
+      inputSenha.type = 'text';
+      btnVerSenha.classList.remove('fa-eye');
+      btnVerSenha.classList.add('fa-eye-slash');
     } else {
-      inputSenha.setAttribute('type', 'password');
-      btnVerSenha.classList.replace('fa-eye-slash', 'fa-eye');
+      inputSenha.type = 'password';
+      btnVerSenha.classList.remove('fa-eye-slash');
+      btnVerSenha.classList.add('fa-eye');
     }
   });
 }
