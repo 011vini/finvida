@@ -3,7 +3,7 @@ Markdown
 
 O **Finvida** é um sistema de gestão financeira pessoal desenvolvido para ajudar usuários a controlarem seus orçamentos, registrarem entradas e saídas e planejarem suas finanças de forma simples e intuitiva. 
 
-Este projeto é um fork do repositório original [Orcamente](https://github.com/Espectrogamer16/Orcamente).
+Este projeto é um fork do repositório original [Orcamente](https://github.com/Espectrogamer16/Orcamente) criado em grupo para projeto final do 2 semestre da faculdade.
 
 ---
 
@@ -34,7 +34,7 @@ Este projeto é um fork do repositório original [Orcamente](https://github.com/
 
 ### Pré-requisitos
 Antes de começar, você vai precisar ter instalado em sua máquina:
-- Um servidor local ou ambiente de execução para a linguagem escolhida (ex: JDK se Java, ou XAMPP/WampServer se PHP).
+- Um servidor local ou ambiente de execução para a linguagem escolhida (XAMPP, PHP).
 - O banco de dados **MySQL** configurado.
 
 ### Passos para a Instalação
