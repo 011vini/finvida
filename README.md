@@ -21,7 +21,7 @@ Este projeto é um fork do repositório original [Orcamente](https://github.com/
 ### **Front-end**
 - HTML5
 - CSS3
-- JavaScript (opcional / se aplicável)
+- JavaScript 
 
 ### **Back-end & Banco de Dados** (Ajuste conforme o seu projeto atual)
 - **Linguagem:** Java / PHP
