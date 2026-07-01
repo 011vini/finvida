@@ -24,8 +24,7 @@ Este projeto é um fork do repositório original [Orcamente](https://github.com/
 - JavaScript 
 
 ### **Back-end & Banco de Dados** (Ajuste conforme o seu projeto atual)
-- **Linguagem:** Java / PHP
-- **Framework/Persistência:** Hibernate / JPA (se em Java)
+- **Linguagem:**  PHP
 - **Banco de Dados:** MySQL
 
 ---
